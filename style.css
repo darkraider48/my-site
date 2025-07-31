@@ -29,11 +29,11 @@ h3 { font-size: 1.5rem; margin-bottom: 1rem; }
 section { padding: 6rem 0; overflow: hidden; }
 section:nth-of-type(even) { background-color: var(--light-bg); }
 
-/* --- BUTTONS --- */
+/* --- BUTTONS (Corrected) --- */
 .btn {
     display: inline-block;
     background-color: var(--primary-color);
-    color: var(--white-color);
+    color: var(--white-color) !important; /* Ensures text is always white */
     padding: 1rem 1.75rem;
     border-radius: 8px;
     text-decoration: none;
@@ -41,6 +41,7 @@ section:nth-of-type(even) { background-color: var(--light-bg); }
     font-family: var(--font-primary);
     transition: all var(--transition-speed) ease;
     border: 1px solid var(--primary-color);
+    text-align: center; /* Ensures text is centered */
 }
 .btn:hover { background-color: var(--secondary-color); border-color: var(--secondary-color); transform: translateY(-3px); }
 
