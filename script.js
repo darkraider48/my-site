@@ -2,21 +2,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const contentArea = document.getElementById('content-area');
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
     const navMenu = document.querySelector('.nav-menu');
-    const header = document.getElementById('header');
-    const loader = document.getElementById('loader');
-
-    // --- SCROLL & HEADER HANDLING ---
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
-    });
-
+    
     // --- INITIAL PAGE LOAD ---
-    showLoader();
-    loadPage('home').finally(hideLoader);
+    loadPage('home');
     lucide.createIcons();
 
     // --- NAVIGATION & MENU HANDLING ---
@@ -29,8 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (navMenu.classList.contains('active')) {
                     closeMobileMenu();
                 }
-                showLoader();
-                loadPage(pageName).finally(hideLoader);
+                loadPage(pageName);
             }
         }
     });
@@ -56,7 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const html = await response.text();
             contentArea.innerHTML = html;
             updateActiveLink(pageName);
-            setupScrollAnimations();
             lucide.createIcons();
             window.scrollTo({ top: 0, behavior: 'auto' });
 
@@ -65,14 +51,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } catch (error) {
             console.error('Failed to load page:', error);
-            contentArea.innerHTML = `<section class="container reveal" style="text-align: center;"><h2>Page Not Found</h2><p>Sorry, we couldn't find the page you were looking for.</p></section>`;
-            setupScrollAnimations(); // Animate in the error message too
+            contentArea.innerHTML = `<section class="container" style="text-align: center;"><h2>Page Not Found</h2><p>Sorry, we couldn't find the page you were looking for.</p></section>`;
         }
     }
-
-    // --- UI & ANIMATION HELPERS ---
-    function showLoader() { loader.style.opacity = '1'; loader.style.display = 'flex'; }
-    function hideLoader() { loader.style.opacity = '0'; setTimeout(() => loader.style.display = 'none', 500); }
 
     function updateActiveLink(pageName) {
         document.querySelectorAll('.nav-link').forEach(link => {
@@ -80,36 +61,46 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function setupScrollAnimations() {
-        const revealElements = document.querySelectorAll('.reveal');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
-
-        revealElements.forEach(el => observer.observe(el));
-    }
-
-    // --- CONTACT FORM LOGIC ---
+    // --- FORMSPREE CONTACT FORM LOGIC ---
     function attachContactFormListener() {
-        const contactForm = document.getElementById('contact-form');
-        const formStatus = document.getElementById('form-status');
-        if (contactForm) {
-            contactForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                formStatus.textContent = 'Sending...';
-                formStatus.style.color = 'var(--accent-color)';
-                setTimeout(() => {
-                    formStatus.textContent = 'Message Sent! Thank you.';
-                    formStatus.style.color = 'var(--accent-color)';
-                    contactForm.reset();
-                    setTimeout(() => formStatus.textContent = '', 4000);
-                }, 1500);
+        const form = document.getElementById('contact-form');
+        const status = document.getElementById('form-status');
+
+        async function handleSubmit(event) {
+            event.preventDefault();
+            const data = new FormData(event.target);
+            
+            status.textContent = 'Sending...';
+            status.style.color = 'var(--primary-color)';
+
+            fetch(event.target.action, {
+                method: form.method,
+                body: data,
+                headers: { 'Accept': 'application/json' }
+            }).then(response => {
+                if (response.ok) {
+                    status.textContent = "Thanks for your submission!";
+                    status.style.color = '#16a34a'; // Green color
+                    form.reset();
+                    setTimeout(() => status.textContent = '', 4000);
+                } else {
+                    response.json().then(data => {
+                        if (Object.hasOwn(data, 'errors')) {
+                            status.textContent = data["errors"].map(error => error["message"]).join(", ");
+                        } else {
+                            status.textContent = "Oops! There was a problem submitting your form";
+                        }
+                        status.style.color = '#dc2626'; // Red color
+                    })
+                }
+            }).catch(error => {
+                status.textContent = "Oops! There was a problem submitting your form";
+                status.style.color = '#dc2626'; // Red color
             });
+        }
+        
+        if (form) {
+            form.addEventListener("submit", handleSubmit);
         }
     }
 });
