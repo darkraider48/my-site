@@ -29,11 +29,13 @@ h3 { font-size: 1.5rem; margin-bottom: 1rem; }
 section { padding: 6rem 0; overflow: hidden; }
 section:nth-of-type(even) { background-color: var(--light-bg); }
 
-/* --- BUTTONS --- */
+/* --- BUTTONS (Corrected) --- */
 .btn {
-    display: inline-block;
+    display: inline-flex; /* Use flexbox for perfect centering */
+    align-items: center;
+    justify-content: center;
     background-color: var(--primary-color);
-    color: var(--white-color); /* Set default button text color */
+    color: var(--white-color) !important; /* Force white text color */
     padding: 1rem 1.75rem;
     border-radius: 8px;
     text-decoration: none;
@@ -41,11 +43,10 @@ section:nth-of-type(even) { background-color: var(--light-bg); }
     font-family: var(--font-primary);
     transition: all var(--transition-speed) ease;
     border: 1px solid var(--primary-color);
-    text-align: center;
 }
 .btn:hover { background-color: var(--secondary-color); border-color: var(--secondary-color); transform: translateY(-3px); }
 
-/* --- HEADER & NAVIGATION --- */
+/* --- HEADER & NAVIGATION (Corrected) --- */
 .header {
     position: sticky;
     top: 0;
@@ -57,20 +58,15 @@ section:nth-of-type(even) { background-color: var(--light-bg); }
 }
 .header-container { display: flex; justify-content: space-between; align-items: center; }
 .logo-image { max-height: 50px; width: auto; }
-.nav-links { list-style: none; display: flex; gap: 2.5rem; }
+.nav-links { list-style: none; display: flex; align-items: center; gap: 2.5rem; } /* Align items center */
 .nav-link { text-decoration: none; color: var(--heading-color); font-weight: 500; position: relative; padding-bottom: 5px; }
-
-/* FIX: Ensure button text stays white even though it's also a nav-link */
-.btn.nav-link {
-    color: var(--white-color);
-}
 
 .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background-color: var(--primary-color); transition: width var(--transition-speed) ease; }
 .nav-link:hover::after, .nav-link.active::after { width: 100%; }
 
-/* FIX: Remove the underline from the logo link when active */
+/* FIX: Remove the underline from the logo link, even when active */
 .logo-link.nav-link::after {
-    display: none;
+    display: none !important;
 }
 
 .mobile-menu-toggle { display: none; background: none; border: none; cursor: pointer; color: var(--primary-color); }
