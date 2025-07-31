@@ -1,113 +1,113 @@
-document.addEventListener('DOMContentLoaded', function() {
-
+document.addEventListener('DOMContentLoaded', () => {
     const contentArea = document.getElementById('content-area');
-    const menuToggle = document.getElementById('menu-toggle');
-    const navMenu = document.getElementById('nav-menu');
     const navLinks = document.querySelectorAll('.nav-link');
-    const footerLinks = document.querySelectorAll('.footer-links a');
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const navMenu = document.querySelector('.nav-menu');
 
-    // Function to load content into the main area with transitions
-    async function loadPage(pageName) {
-        // 1. Fade out current content
-        if (contentArea.firstElementChild) { // Check if there's content to fade out
-            contentArea.firstElementChild.classList.add('fade-out');
-            // Wait for fade-out animation to complete before changing content
-            await new Promise(resolve => setTimeout(resolve, 300)); // Match CSS fadeOut duration
-        }
+    // --- INITIAL PAGE LOAD ---
+    // Load the home page by default
+    loadPage('home');
 
-        try {
-            const response = await fetch(`${pageName}.html`);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            const htmlContent = await response.text();
-            contentArea.innerHTML = htmlContent;
-
-            // 2. Fade in new content
-            if (contentArea.firstElementChild) {
-                contentArea.firstElementChild.classList.add('fade-in');
-                // Remove fade-in class after animation to allow future transitions
-                contentArea.firstElementChild.addEventListener('animationend', function handler() {
-                    this.classList.remove('fade-in');
-                    this.removeEventListener('animationend', handler);
-                });
+    // --- NAVIGATION HANDLING ---
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const pageName = link.dataset.page;
+            
+            // Close mobile menu if open
+            if (navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+                mobileMenuToggle.innerHTML = `<i data-lucide="menu"></i>`;
+                lucide.createIcons();
             }
             
-            // Re-render Lucide icons after new content is loaded
+            loadPage(pageName);
+        });
+    });
+
+    // --- MOBILE MENU TOGGLE ---
+    mobileMenuToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        // Change icon based on menu state
+        if (navMenu.classList.contains('active')) {
+            mobileMenuToggle.innerHTML = `<i data-lucide="x"></i>`;
+        } else {
+            mobileMenuToggle.innerHTML = `<i data-lucide="menu"></i>`;
+        }
+        lucide.createIcons(); // Re-render the new icon
+    });
+
+    /**
+     * Loads page content dynamically into the main content area.
+     * @param {string} pageName - The name of the page to load (e.g., 'home', 'about').
+     */
+    async function loadPage(pageName) {
+        try {
+            // 1. Fetch the new content
+            const response = await fetch(`${pageName}.html`);
+            if (!response.ok) {
+                throw new Error(`Could not load page. Status: ${response.status}`);
+            }
+            const html = await response.text();
+
+            // 2. Inject the new content using innerHTML
+            contentArea.innerHTML = html;
+
+            // 3. Update active link state
+            updateActiveLink(pageName);
+
+            // 4. Re-initialize Lucide icons for the new content
             lucide.createIcons();
-            // Scroll to the top of the loaded content
+
+            // 5. Scroll to the top of the page
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
-            // If the loaded page is 'contact', re-attach form listener
+            // 6. Re-attach form listener if on the contact page
             if (pageName === 'contact') {
                 attachContactFormListener();
             }
 
         } catch (error) {
-            console.error('Error loading page:', error);
-            contentArea.innerHTML = `<section class="section container" style="text-align: center; padding: 100px 0;">
-                                        <h2>Page Not Found</h2>
-                                        <p>Sorry, the content you're looking for could not be loaded.</p>
-                                    </section>`;
-            // Ensure any error message also fades in
-            if (contentArea.firstElementChild) {
-                contentArea.firstElementChild.classList.add('fade-in');
-            }
+            console.error('Failed to load page:', error);
+            contentArea.innerHTML = `<section class="container" style="text-align: center;"><h2>Page Not Found</h2><p>Sorry, we couldn't find the page you were looking for.</p></section>`;
         }
     }
 
-    // Function to attach contact form listener (needs to be called after content is loaded)
+    /**
+     * Updates the 'active' class on navigation links.
+     * @param {string} pageName - The currently active page.
+     */
+    function updateActiveLink(pageName) {
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.dataset.page === pageName) {
+                link.classList.add('active');
+            }
+        });
+    }
+
+    /**
+     * Attaches a listener to the contact form for submission simulation.
+     */
     function attachContactFormListener() {
         const contactForm = document.getElementById('contact-form');
         const formStatus = document.getElementById('form-status');
 
         if (contactForm) {
-            contactForm.addEventListener('submit', function(event) {
-                event.preventDefault(); // Prevent the form from refreshing the page
-
-                // Simulate form submission
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
                 formStatus.textContent = 'Sending message...';
-                formStatus.style.color = '#3b82f6'; // Blue for pending
+                formStatus.style.color = 'var(--primary-color)';
 
+                // Simulate a network request
                 setTimeout(() => {
-                    formStatus.textContent = 'Thank you for your message! We will get back to you soon.';
-                    formStatus.style.color = '#10b981'; // Green color for success
+                    formStatus.textContent = 'Thank you! Your message has been sent.';
+                    formStatus.style.color = 'green';
                     contactForm.reset();
+                    // Clear the message after a few seconds
+                    setTimeout(() => formStatus.textContent = '', 4000);
                 }, 1500);
             });
         }
     }
-
-    // Mobile menu toggle functionality
-    menuToggle.addEventListener('click', function() {
-        navMenu.classList.toggle('active');
-        const icon = this.querySelector('i');
-        if (navMenu.classList.contains('active')) {
-            icon.dataset.lucide = 'x';
-        } else {
-            icon.dataset.lucide = 'menu';
-        }
-        lucide.createIcons(); // Re-render icon
-    });
-
-    // Handle navigation clicks (for both header and footer links)
-    [...navLinks, ...footerLinks].forEach(link => {
-        link.addEventListener('click', function(event) {
-            event.preventDefault(); // Prevent default link behavior
-            const page = this.dataset.page;
-            if (page) {
-                loadPage(page);
-                // Close mobile menu if open
-                if (navMenu.classList.contains('active')) {
-                    navMenu.classList.remove('active');
-                    const icon = menuToggle.querySelector('i');
-                    icon.dataset.lucide = 'menu';
-                    lucide.createIcons();
-                }
-            }
-        });
-    });
-
-    // Load the home page content when the website first loads
-    loadPage('home');
 });
