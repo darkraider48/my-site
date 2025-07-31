@@ -31,11 +31,11 @@ section:nth-of-type(even) { background-color: var(--light-bg); }
 
 /* --- BUTTONS (Corrected) --- */
 .btn {
-    display: inline-flex; /* Use flexbox for perfect centering */
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     background-color: var(--primary-color);
-    color: var(--white-color) !important; /* Force white text color */
+    color: var(--white-color) !important;
     padding: 1rem 1.75rem;
     border-radius: 8px;
     text-decoration: none;
@@ -58,14 +58,20 @@ section:nth-of-type(even) { background-color: var(--light-bg); }
 }
 .header-container { display: flex; justify-content: space-between; align-items: center; }
 .logo-image { max-height: 50px; width: auto; }
-.nav-links { list-style: none; display: flex; align-items: center; gap: 2.5rem; } /* Align items center */
+.nav-links { list-style: none; display: flex; align-items: center; gap: 2.5rem; }
 .nav-link { text-decoration: none; color: var(--heading-color); font-weight: 500; position: relative; padding-bottom: 5px; }
+
+/* FIX: Remove the extra padding from buttons that are also nav-links to fix vertical alignment */
+.btn.nav-link {
+    padding: 1rem 1.75rem;
+}
 
 .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background-color: var(--primary-color); transition: width var(--transition-speed) ease; }
 .nav-link:hover::after, .nav-link.active::after { width: 100%; }
 
-/* FIX: Remove the underline from the logo link, even when active */
-.logo-link.nav-link::after {
+/* FIX: Remove the underline from the logo link and any buttons, even when active */
+.logo-link.nav-link::after,
+.btn.nav-link::after {
     display: none !important;
 }
 
