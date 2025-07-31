@@ -1,11 +1,59 @@
 <section id="contact">
     <div class="container">
-        <div class="contact-wrapper reveal">
-            <h2 style="justify-content: center;">Get In Touch</h2>
-            <h3>Let's Build the Future Together</h3>
-            <p>Whether you have a product inquiry, a complex challenge, or a partnership proposal, our team is ready to connect.</p>
-            <div class="contact-button">
-                 <a href="mailto:support@krishna-chemicals.in" class="btn">Email Us</a>
+        <h2>Contact Us</h2>
+        <p class="section-subtitle">We're here to help. Whether you have a question about our products or a business inquiry, please don't hesitate to reach out.</p>
+        
+        <div class="contact-grid">
+            <!-- Left Side: Contact Information -->
+            <div class="contact-info">
+                <h3>Contact Information</h3>
+                <p>Our team is available to assist you during business hours.</p>
+                
+                <div class="contact-info-item">
+                    <i data-lucide="map-pin"></i>
+                    <div>
+                        <h4>Address</h4>
+                        <p>Raipur, Mukherjee Gate, Maheshtala, Kolkata, West Bengal 700141, India</p>
+                    </div>
+                </div>
+
+                <div class="contact-info-item">
+                    <i data-lucide="phone-call"></i>
+                    <div>
+                        <h4>Phone</h4>
+                        <p><a href="tel:+918240585269">+91 8240585269</a></p>
+                    </div>
+                </div>
+
+                <div class="contact-info-item">
+                    <i data-lucide="mail"></i>
+                    <div>
+                        <h4>Email</h4>
+                        <p><a href="mailto:support@krishna-chemicals.in">support@krishna-chemicals.in</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Contact Form -->
+            <div class="contact-form-wrapper">
+                <h3>Send Us a Message</h3>
+                <!-- THIS FORM NOW SUBMITS TO FORMSPREE -->
+                <form id="contact-form" action="https://formspree.io/f/xvgqqway" method="POST">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Your Email</label>
+                        <input type="email" id="email" name="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Your Message</label>
+                        <textarea id="message" name="message" class="form-control" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn">Send Message</button>
+                    <p id="form-status"></p>
+                </form>
             </div>
         </div>
     </div>
