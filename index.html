@@ -3,65 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Krishna Chemicals - Innovating Tomorrow's Chemistry</title>
-    <!-- Google Fonts - Inter -->
+    <title>Krishna Chemicals | Quality Manufacturer in Kolkata</title>
+    <meta name="description" content="Krishna Chemicals is a leading manufacturer of high-quality detergents and chemical solutions based in Maheshtala, Kolkata.">
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Lucide Icons CDN -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Your Custom Stylesheet -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Main Stylesheet -->
     <link rel="stylesheet" href="style.css">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest" defer></script>
 </head>
 <body>
 
-    <!-- Header & Navigation -->
+    <!-- Header Section -->
     <header class="header">
-        <nav class="container nav">
-            <div class="logo">
-                <i data-lucide="chemical"></i>
-                <span>Krishna Chemicals</span>
-            </div>
-            <ul class="nav-menu" id="nav-menu">
-                <li><a href="#" class="nav-link" data-page="home">Home</a></li>
-                <li><a href="#" class="nav-link" data-page="about">About Us</a></li>
-                <li><a href="#" class="nav-link" data-page="products">Products</a></li>
-                <li><a href="#" class="nav-link" data-page="quality">Quality</a></li>
-                <li><a href="#" class="nav-link" data-page="contact">Contact</a></li>
-            </ul>
-            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu">
-                <i data-lucide="menu" class="menu-icon"></i>
+        <div class="container header-container">
+            <a href="#" class="logo-link nav-link" data-page="home">
+                <img src="assets/images/logo.png" alt="Krishna Chemicals Logo" class="logo-image">
+            </a>
+            <nav class="nav-menu">
+                <ul class="nav-links">
+                    <li><a href="#" class="nav-link active" data-page="home">Home</a></li>
+                    <li><a href="#" class="nav-link" data-page="about">About Us</a></li>
+                    <li><a href="#" class="nav-link" data-page="products">Products</a></li>
+                    <li><a href="#" class="nav-link" data-page="quality">Quality</a></li>
+                    <li><a href="#" class="nav-link" data-page="contact">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-menu-toggle" aria-label="Toggle Menu">
+                <i data-lucide="menu"></i>
             </button>
-        </nav>
+        </div>
     </header>
 
-    <!-- Main Content Area - Content will be loaded here dynamically -->
+    <!-- Main Content Area (Dynamically Loaded) -->
     <main id="content-area">
-        <!-- Initial content (e.g., Home page) will be loaded by script.js -->
+        <!-- Content from home.html, about.html, etc., will be loaded here by script.js -->
     </main>
 
-    <!-- Footer -->
+    <!-- Footer Section -->
     <footer class="footer">
-        <div class="container">
-            <div class="footer-logo">
-                <i data-lucide="chemical"></i>
-                <span>Krishna Chemicals</span>
+        <div class="container footer-container">
+            <div class="footer-about">
+                <h3 class="footer-title">Krishna Chemicals</h3>
+                <p>Your trusted partner in chemical manufacturing, committed to quality and innovation since our inception.</p>
             </div>
-            <p>&copy; 2025 Krishna Chemicals. All rights reserved.</p>
             <div class="footer-links">
-                <a href="#" data-page="home">Home</a>
-                <a href="#" data-page="about">About</a>
-                <a href="#" data-page="products">Products</a>
-                <a href="#" data-page="contact">Contact</a>
+                <h3 class="footer-title">Quick Links</h3>
+                <ul>
+                    <li><a href="#" class="nav-link" data-page="about">About Us</a></li>
+                    <li><a href="#" class="nav-link" data-page="products">Our Products</a></li>
+                    <li><a href="#" class="nav-link" data-page="quality">Quality Assurance</a></li>
+                    <li><a href="#" class="nav-link" data-page="contact">Contact Us</a></li>
+                </ul>
             </div>
+            <div class="footer-contact">
+                <h3 class="footer-title">Get in Touch</h3>
+                <p><i data-lucide="map-pin" class="footer-icon"></i> Raipur, Mukherjee Gate, Maheshtala, Kolkata, West Bengal 700141</p>
+                <p><i data-lucide="phone" class="footer-icon"></i> (Your Phone Number)</p>
+                <p><i data-lucide="mail" class="footer-icon"></i> (Your Email Address)</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Krishna Chemicals. All Rights Reserved. Designed with care.</p>
         </div>
     </footer>
 
-    <!-- Your Custom JavaScript -->
+    <!-- Main JavaScript File -->
     <script src="script.js"></script>
-    <script>
-        // Initial rendering of lucide icons (for header/footer)
-        lucide.createIcons();
-    </script>
+
 </body>
 </html>
