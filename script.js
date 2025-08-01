@@ -43,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const html = await response.text();
             contentArea.innerHTML = html;
             updateActiveLink(pageName);
+            setupScrollAnimations(); // Setup animations for new content
             lucide.createIcons();
             window.scrollTo({ top: 0, behavior: 'auto' });
 
@@ -61,6 +62,25 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- ADVANCED SCROLL ANIMATION LOGIC ---
+    function setupScrollAnimations() {
+        const revealElements = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target); // Stop observing after it's visible
+                }
+            });
+        }, {
+            threshold: 0.1 // Trigger when 10% of the element is visible
+        });
+
+        revealElements.forEach(el => {
+            observer.observe(el);
+        });
+    }
+
     // --- FORMSPREE CONTACT FORM LOGIC ---
     function attachContactFormListener() {
         const form = document.getElementById('contact-form');
@@ -69,7 +89,6 @@ document.addEventListener('DOMContentLoaded', () => {
         async function handleSubmit(event) {
             event.preventDefault();
             const data = new FormData(event.target);
-            
             status.textContent = 'Sending...';
             status.style.color = 'var(--primary-color)';
 
@@ -80,22 +99,18 @@ document.addEventListener('DOMContentLoaded', () => {
             }).then(response => {
                 if (response.ok) {
                     status.textContent = "Thanks for your submission!";
-                    status.style.color = '#16a34a'; // Green color
+                    status.style.color = '#16a34a';
                     form.reset();
                     setTimeout(() => status.textContent = '', 4000);
                 } else {
                     response.json().then(data => {
-                        if (Object.hasOwn(data, 'errors')) {
-                            status.textContent = data["errors"].map(error => error["message"]).join(", ");
-                        } else {
-                            status.textContent = "Oops! There was a problem submitting your form";
-                        }
-                        status.style.color = '#dc2626'; // Red color
-                    })
+                        status.textContent = data.errors ? data.errors.map(e => e.message).join(", ") : "Oops! There was a problem.";
+                        status.style.color = '#dc2626';
+                    });
                 }
-            }).catch(error => {
+            }).catch(() => {
                 status.textContent = "Oops! There was a problem submitting your form";
-                status.style.color = '#dc2626'; // Red color
+                status.style.color = '#dc2626';
             });
         }
         
