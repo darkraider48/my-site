@@ -23,7 +23,7 @@ body {
 }
 .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
 h1, h2, h3, h4 { font-family: var(--font-primary); color: var(--heading-color); font-weight: 700; }
-h1 { font-size: clamp(32px, 4vw, 48px); color: var(--primary-color); }
+h1 { font-size: clamp(32px, 4vw, 44px); color: var(--primary-color); line-height: 1.2; }
 h2 { font-size: clamp(32px, 5vw, 40px); margin-bottom: 2rem; text-align: center; }
 h3 { font-size: 1.5rem; margin-bottom: 1rem; }
 section { padding: 6rem 0; overflow: hidden; }
@@ -125,13 +125,14 @@ section:nth-of-type(even) { background-color: var(--light-bg); }
 .brand-logo img { max-height: 100%; max-width: 100%; object-fit: contain; }
 .brand-card h3 { font-size: 1.25rem; color: var(--heading-color); }
 
-/* --- ABOUT & SUSTAINABILITY PAGES --- */
+/* --- ABOUT & SUSTAINABILITY PAGES (Corrected Formatting) --- */
 .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
 .content-image img { width: 100%; border-radius: 8px; box-shadow: var(--box-shadow); }
-.content-text ul { list-style: none; padding: 0; margin-top: 1.5rem; }
-.content-text li { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; font-weight: 500; }
-.content-text li i { color: var(--secondary-color); }
-.content-text strong { color: var(--heading-color); }
+.content-text .list { margin-top: 1.5rem; }
+.content-text .list-item { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
+.content-text .list-item i { color: var(--secondary-color); flex-shrink: 0; margin-top: 5px; }
+.content-text .list-item-title { font-weight: 700; color: var(--heading-color); }
+.content-text .list-item-description { color: var(--text-color); }
 
 /* --- CONTACT PAGE --- */
 .section-subtitle { text-align: center; max-width: 600px; margin: -1rem auto 3rem auto; color: var(--text-color); }
@@ -184,7 +185,7 @@ section:nth-of-type(even) { background-color: var(--light-bg); }
     .hero-grid {
         display: flex;
         flex-direction: column;
-        padding: 2rem 1rem;
+        padding: 3rem 1rem;
     }
     .hero-videos {
         order: 1; /* Videos appear first */
@@ -195,4 +196,6 @@ section:nth-of-type(even) { background-color: var(--light-bg); }
         order: 2; /* Text appears after videos */
         margin-top: 2rem;
     }
+    .content-grid { gap: 2rem; }
+    .content-image { order: -1; margin-bottom: 1rem; }
 }
