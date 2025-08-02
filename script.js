@@ -43,11 +43,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const html = await response.text();
             contentArea.innerHTML = html;
             updateActiveLink(pageName);
-            setupScrollAnimations();
+            setupScrollAnimations(); // Setup animations for new content
             lucide.createIcons();
             window.scrollTo({ top: 0, behavior: 'auto' });
 
-            if (pageName === 'contact' || pageName === 'newsletter') {
+            if (pageName === 'contact' || pageName === 'newsroom') {
                 attachContactFormListener();
             }
         } catch (error) {
@@ -69,10 +69,12 @@ document.addEventListener('DOMContentLoaded', () => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
+                    observer.unobserve(entry.target); // Stop observing after it's visible
                 }
             });
-        }, { threshold: 0.1 });
+        }, {
+            threshold: 0.1 // Trigger when 10% of the element is visible
+        });
 
         revealElements.forEach(el => {
             observer.observe(el);
@@ -82,7 +84,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- FORMSPREE CONTACT FORM LOGIC ---
     function attachContactFormListener() {
         const form = document.querySelector('#contact-form, #newsletter-form');
-        const status = document.getElementById('form-status');
+        if (!form) return;
+        
+        const status = form.querySelector('#form-status');
 
         async function handleSubmit(event) {
             event.preventDefault();
@@ -112,8 +116,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
         
-        if (form) {
-            form.addEventListener("submit", handleSubmit);
-        }
+        form.addEventListener("submit", handleSubmit);
     }
 });
