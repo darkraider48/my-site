@@ -134,12 +134,14 @@ section:nth-of-type(even) { background-color: var(--light-bg); }
 .content-text .list-item-title { font-weight: 700; color: var(--heading-color); }
 .content-text .list-item-description { color: var(--text-color); }
 
-/* --- NEWSLETTER PAGE --- */
+/* --- NEWSLETTER PAGE (Corrected) --- */
 .articles-section { padding-bottom: 4rem; }
 .article-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    /* This creates flexible columns but constrains their max size */
+    grid-template-columns: repeat(auto-fit, minmax(320px, 400px));
     gap: 2rem;
+    justify-content: center; /* This centers the items if they don't fill the full width */
 }
 .article-card {
     background-color: var(--white-color);
@@ -228,7 +230,7 @@ section:nth-of-type(even) { background-color: var(--light-bg); }
 .footer-icon { margin-top: 4px; color: var(--secondary-color); flex-shrink: 0; }
 .footer-bottom { border-top: 1px solid #334155; padding-top: 2rem; margin-top: 2rem; text-align: center; font-size: 0.9rem; color: rgba(255, 255, 255, 0.6); }
 
-/* --- MOBILE OPTIMIZATION --- */
+/* --- RESPONSIVE DESIGN --- */
 @media (max-width: 992px) {
     .content-grid, .contact-grid, .hero-grid { grid-template-columns: 1fr; }
     .hero { text-align: center; min-height: auto; padding: 4rem 0; }
