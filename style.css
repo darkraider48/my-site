@@ -149,24 +149,27 @@ section:nth-of-type(even) { background-color: var(--light-bg); }
 .commitment-section { text-align: center; }
 .commitment-section .list { max-width: 800px; margin: 0 auto; text-align: left; }
 
-/* --- NEWSROOM PAGE --- */
+/* --- NEWSROOM & COMPLIANCE PAGES --- */
 .articles-section { padding-bottom: 4rem; }
-.article-grid {
+.article-grid, .compliance-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 400px));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 2rem;
-    justify-content: center;
 }
-.article-card {
+.article-card, .document-card {
     background-color: var(--white-color);
     border-radius: 8px;
     box-shadow: var(--box-shadow);
     overflow: hidden;
     transition: all var(--transition-speed) ease;
+    text-decoration: none;
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
 }
-.article-card:hover { transform: translateY(-5px); }
+.article-card:hover, .document-card:hover { transform: translateY(-5px); }
 .article-image img { width: 100%; display: block; }
-.article-content { padding: 1.5rem; }
+.article-content, .document-card { padding: 1.5rem; }
 .article-tag {
     display: inline-block;
     background-color: var(--light-bg);
@@ -177,8 +180,9 @@ section:nth-of-type(even) { background-color: var(--light-bg); }
     font-weight: 700;
     margin-bottom: 1rem;
 }
-.article-content h3 { font-size: 1.25rem; margin-bottom: 0.5rem; }
-.article-link {
+.article-content h3, .document-card h3 { font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--heading-color); }
+.document-card p { flex-grow: 1; }
+.article-link, .document-link {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
@@ -187,8 +191,8 @@ section:nth-of-type(even) { background-color: var(--light-bg); }
     font-weight: 700;
     margin-top: 1rem;
 }
-.article-link i { transition: transform var(--transition-speed) ease; }
-.article-link:hover i { transform: translateX(5px); }
+.article-link i, .document-link i { transition: transform var(--transition-speed) ease; }
+.article-link:hover i, .document-link:hover i { transform: translateX(5px); }
 
 .subscription-section {
     border-top: 1px solid var(--border-color);
