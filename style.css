@@ -146,6 +146,8 @@ section:nth-of-type(even) { background-color: var(--light-bg); }
 .content-text .list-item i { color: var(--secondary-color); flex-shrink: 0; margin-top: 5px; }
 .content-text .list-item-title { font-weight: 700; color: var(--heading-color); }
 .content-text .list-item-description { color: var(--text-color); }
+.commitment-section { text-align: center; }
+.commitment-section .list { max-width: 800px; margin: 0 auto; text-align: left; }
 
 /* --- NEWSROOM PAGE --- */
 .articles-section { padding-bottom: 4rem; }
