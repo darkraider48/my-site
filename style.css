@@ -62,6 +62,19 @@ section:nth-of-type(even) { background-color: var(--light-bg); }
 .logo-link.nav-link::after, .btn.nav-link::after { display: none !important; }
 .mobile-menu-toggle { display: none; background: none; border: none; cursor: pointer; color: var(--primary-color); }
 
+/* --- IDENTIFIER BAR --- */
+.identifier-bar {
+    background-color: #000000;
+    color: #ffffff;
+    text-align: center;
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+.identifier-bar .separator {
+    margin: 0 1rem;
+}
+
 /* --- ADVANCED ANIMATIONS --- */
 .reveal {
     opacity: 0;
@@ -75,7 +88,7 @@ section:nth-of-type(even) { background-color: var(--light-bg); }
 
 /* --- HERO SECTION (DESKTOP) --- */
 .hero {
-    min-height: calc(100vh - 90px);
+    min-height: calc(100vh - 122px); /* Adjusted for header + identifier bar */
     display: flex;
     align-items: center;
     background-color: var(--light-bg);
@@ -218,6 +231,14 @@ section:nth-of-type(even) { background-color: var(--light-bg); }
 .form-control:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2); }
 #form-status { margin-top: 1.5rem; font-weight: 500; text-align: center; }
 
+/* --- MAP STYLES --- */
+.map-wrapper {
+    margin-top: 3rem;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+}
+
 /* --- WHATSAPP IMAGE BUTTONS --- */
 .whatsapp-image-link {
     display: inline-block;
@@ -253,6 +274,11 @@ section:nth-of-type(even) { background-color: var(--light-bg); }
 .footer-contact-link { text-decoration: none; }
 .footer-icon { margin-top: 4px; color: var(--secondary-color); flex-shrink: 0; }
 .footer-bottom { border-top: 1px solid #334155; padding-top: 2rem; margin-top: 2rem; text-align: center; font-size: 0.9rem; color: rgba(255, 255, 255, 0.6); }
+.footer-identifiers {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 1rem;
+}
 
 /* --- RESPONSIVE DESIGN --- */
 @media (max-width: 992px) {
@@ -280,4 +306,6 @@ section:nth-of-type(even) { background-color: var(--light-bg); }
     .content-grid { gap: 2rem; }
     .content-image { order: -1; margin-bottom: 1rem; }
     .newsletter-form { flex-direction: column; }
+    .identifier-bar .separator { display: none; }
+    .identifier-bar span { display: block; }
 }
