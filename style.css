@@ -62,9 +62,9 @@ section:nth-of-type(even) { background-color: var(--light-bg); }
 .logo-link.nav-link::after, .btn.nav-link::after { display: none !important; }
 .mobile-menu-toggle { display: none; background: none; border: none; cursor: pointer; color: var(--primary-color); }
 
-/* --- IDENTIFIER BAR --- */
+/* --- IDENTIFIER BAR (Updated Color) --- */
 .identifier-bar {
-    background-color: #000000;
+    background-color: var(--primary-color); /* Changed from black to primary blue */
     color: #ffffff;
     text-align: center;
     padding: 0.5rem 1rem;
